@@ -1,4 +1,4 @@
-# Systool - DNS Tool Bash Script v1
+# Systool - System related information tool v1
 Systool is a Bash script designed to perform various networking tasks, focusing on DNS-related operations. This script provides a user-friendly interface for checking IP addresses, MAC addresses, and DNS information of websites.
 
 ## Features
