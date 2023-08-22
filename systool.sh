@@ -61,7 +61,7 @@ echo -e "└[\e[32m0\e[0m] Exit"
 
 dmain(){
     echo
-    read -p "Enter your Option : " doption
+    read -p "Choose : " doption
 
     case $doption in
     1)  read -p "Enter your website URL : " site
