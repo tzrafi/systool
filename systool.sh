@@ -1,4 +1,10 @@
 #!/bin/bash
+#
+#------------------
+# systool
+# By Tz Rafi
+#------------------
+#
 
 banner(){
 clear
@@ -9,6 +15,33 @@ echo "#                               #"
 echo "#################################"
 echo 
 }
+
+message(){
+echo -e "┌[\e[32m1\e[0m] Show IP Address" 
+echo -e "|[\e[32m2\e[0m] Show MAC Address"
+echo -e "|[\e[32m3\e[0m] Check DNS"
+echo -e "└[\e[32m0\e[0m] Exit"
+}
+
+main(){
+    echo
+    read -p "Choose : " option
+    myip=$(hostname -I | awk 'NR == 1 {print $1}')
+    mymac=$(ip link show eth0 | grep "link/ether" | awk '{print $2}')
+    echo
+
+    case $option in
+    1)  echo "Your IP Address is : " $myip;;
+    2)  echo "Your MAC Address is : " $mymac;;
+    3)  dbanner
+        dns
+        dmain
+        ;;
+    *) echo "opps! we don't find you option : $option"
+    esac
+
+}
+
 dbanner(){
 clear
 echo "#################################"
@@ -18,30 +51,28 @@ echo "#                               #"
 echo "#################################"
 echo 
 }
+
 dns(){
-echo "Enter 1 to Check Website IP Address"
-echo "Enter 2 to Check Website Nameserver"
-echo "Enter 9 to Main Manu"
-echo "Enter 0 to Exit"
+echo -e "┌[\e[32m1\e[0m] Website IP Address"
+echo -e "|[\e[32m2\e[0m] Website Nameserver"
+echo -e "|[\e[32m9\e[0m] Main Manu"
+echo -e "└[\e[32m0\e[0m] Exit"
 }
-message(){
-echo "Enter 1 to Show IP Address"
-echo "Enter 2 to Show MAC Address"
-echo "Enter 3 to Check DNS"
-echo "Enter 0 to Exit"
-}
+
 dmain(){
     echo
     read -p "Enter your Option : " doption
 
     case $doption in
     1)  read -p "Enter your website URL : " site
+        iping=$(ping -c 2 $site | grep "64 bytes from" | awk 'NR == 2 {print $5}' | tr -d '():')
         echo
-        echo "Your website ($site) IP Address is : " $(ping -c 2 $site | grep "64 bytes from" | awk 'NR == 2 {print $5}' | tr -d '():')
+        echo "Your website ($site) IP Address is : " $iping
     ;;
     2)  read -p "Enter your website URL : " ns
+        nserver=$(dig +short ns $ns)
         echo
-        echo -e "Your website ($ns) Nameserver is : \n\n$(dig +short ns $ns)"
+        echo -e "Your website ($ns) Nameserver is : \n\n$nserver"
     ;;
     9)  banner
         message
@@ -49,22 +80,6 @@ dmain(){
     ;;
     *) echo "opps! we don't find you option : $doption"
     esac
-}
-main(){
-    echo
-    read -p "Enter your Option : " option
-    echo
-
-    case $option in
-    1)  echo "Your IP Address is : " $(hostname -I | awk 'NR == 1 {print $1}');;
-    2)  echo "Your MAC Address is : " $(ip link show eth0 | grep "link/ether" | awk '{print $2}');;
-    3)  dbanner
-        dns
-        dmain
-        ;;
-    *) echo "opps! we don't find you option : $option"
-    esac
-
 }
 banner
 message
