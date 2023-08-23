@@ -89,8 +89,9 @@ dmain(){
         echo
         echo -e "Your website ($ns) Nameserver is : \n\n$nserver"
     ;;
-    9)  
-    ;;
+    9)  banner
+        message
+        main
     0) clear && exit 1 ;;
     *) echo "opps! we don't find you option : $doption"
     esac
