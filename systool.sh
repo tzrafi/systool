@@ -5,25 +5,40 @@
 # By Tz Rafi
 #------------------
 #
+counter(){
+    one="┌[\e[32m1\e[0m]"
+    two="|[\e[32m2\e[0m]"
+    three="|[\e[32m3\e[0m]"
+    four="|[\e[32m4\e[0m]"
+    five="|[\e[32m5\e[0m]"
+    six="|[\e[32m6\e[0m]"
+    seven="|[\e[32m7\e[0m]"
+    eight="|[\e[32m8\e[0m]"
+    nine="|[\e[32m9\e[0m]"
+    zero="└[\e[32m0\e[0m]"
+}
 
 banner(){
-clear
-echo "#################################"
-echo "#                               #"
-echo "#            Systool            #"
-echo "#                               #"
-echo "#################################"
-echo 
+    clear
+    echo "#################################"
+    echo "#                               #"
+    echo "#            Systool            #"
+    echo "#                               #"
+    echo "#################################"
+    echo 
 }
 
 message(){
-echo -e "┌[\e[32m1\e[0m] Show IP Address" 
-echo -e "|[\e[32m2\e[0m] Show MAC Address"
-echo -e "|[\e[32m3\e[0m] Check DNS"
-echo -e "└[\e[32m0\e[0m] Exit"
+    counter
+    echo -e "$one Show IP Address" 
+    echo -e "$two Show MAC Address"
+    echo -e "$three Check DNS"
+    echo -e "$zero Exit"
 }
 
 main(){
+    banner
+    message
     echo
     read -p "Choose : " option
     myip=$(hostname -I | awk 'NR == 1 {print $1}')
@@ -37,11 +52,10 @@ main(){
         dns
         dmain
         ;;
-    *) echo "opps! we don't find you option : $option"
+    0) clear && exit 1 ;;
+    *) echo "opps! we don't find you option : $option";;
     esac
-
 }
-
 dbanner(){
 clear
 echo "#################################"
@@ -53,10 +67,11 @@ echo
 }
 
 dns(){
-echo -e "┌[\e[32m1\e[0m] Website IP Address"
-echo -e "|[\e[32m2\e[0m] Website Nameserver"
-echo -e "|[\e[32m9\e[0m] Main Manu"
-echo -e "└[\e[32m0\e[0m] Exit"
+counter
+echo -e "$one Website IP Address"
+echo -e "$two Website Nameserver"
+echo -e "$nine Main Manu"
+echo -e "$zero Exit"
 }
 
 dmain(){
@@ -74,10 +89,9 @@ dmain(){
         echo
         echo -e "Your website ($ns) Nameserver is : \n\n$nserver"
     ;;
-    9)  banner
-        message
-        main
+    9)  
     ;;
+    0) clear && exit 1 ;;
     *) echo "opps! we don't find you option : $doption"
     esac
 }
